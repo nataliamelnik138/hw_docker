@@ -1,0 +1,38 @@
+[
+  {
+    "model": "courses.payment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "date": "2023-10-23",
+      "course": 1,
+      "lesson": null,
+      "amount": 95000,
+      "method": "non-cash"
+    }
+  },
+  {
+    "model": "courses.payment",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "date": "2023-10-25",
+      "course": null,
+      "lesson": 2,
+      "amount": 5000,
+      "method": "cash"
+    }
+  },
+  {
+    "model": "courses.payment",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "date": "2023-10-28",
+      "course": null,
+      "lesson": 3,
+      "amount": 5000,
+      "method": "non-cash"
+    }
+  }
+]
