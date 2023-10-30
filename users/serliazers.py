@@ -16,3 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'avatar', 'phone', 'city', 'payment',)
+
+
+class UserPublicSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'email', 'avatar', 'city',)
