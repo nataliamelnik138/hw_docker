@@ -5,13 +5,12 @@ from users.models import User
 
 class Command(BaseCommand):
     """
-    Команда для создания суперпользователя
+    Команда для создания пользователя
     """
+
     def handle(self, *args, **options):
         user = User.objects.create(
-            email='admin@sky.pro',
-            is_superuser=True,
-            is_staff=True,
+            email='nat@mail.ru',
             is_active=True
         )
 
