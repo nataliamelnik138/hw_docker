@@ -107,7 +107,3 @@ class SubscriptionCreateAPIView(generics.CreateAPIView):
 class SubscriptionDestroyAPIView(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
     permission_classes = [IsAuthenticated, IsSubscriber]
-
-    def perform_destroy(self, instance):
-        instance.is_activ = False
-        instance.save()
