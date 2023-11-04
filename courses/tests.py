@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-from courses.models import Lesson
+from courses.models import Lesson, Course, Subscription
 from users.models import User
 
 
@@ -149,6 +149,64 @@ class LessonAPITestCase(APITestCase):
 
         response = self.client.delete(
             f'/lesson/{self.lesson.id}/delete/'
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_204_NO_CONTENT
+        )
+
+
+class SubscriptionAPITestCase(APITestCase):
+
+    def setUp(self) -> None:
+        self.client = APIClient()
+        self.user = User.objects.create(email='user@test.com', password='test')
+        self.client.force_authenticate(user=self.user)
+
+        self.course = Course.objects.create(
+            title='Course_test_1',
+            description='Test_1',
+            owner=self.user
+        )
+
+    def test_create_subscription(self):
+        """Тестирование создания подписки"""
+        subscription = {
+            "user": self.user.id,
+            "course": self.course.id,
+            "is_activ": True
+        }
+        response = self.client.post(
+            f'/course/{self.course.id}/subscription/create/',
+            data=subscription
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_201_CREATED
+        )
+
+        self.assertEqual(
+            response.json(),
+            {'id': 1, 'is_activ': True, 'user': self.user.id, 'course': 1}
+        )
+
+        self.assertTrue(
+            Subscription.objects.all().exists()
+        )
+
+    def test_delete_subscription(self):
+        """Тестирование удаления подписки"""
+
+        subscription = Subscription.objects.create(
+            user=self.user,
+            course=self.course,
+            is_activ=True
+        )
+
+        response = self.client.delete(
+            f'/course/subscription/{subscription.id}/delete/'
         )
 
         self.assertEqual(
