@@ -14,6 +14,7 @@ class Course(models.Model):
     )
     description = models.TextField(verbose_name='описание')
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.IntegerField(verbose_name='цена', default=100)
 
     def __str__(self):
         return self.title
@@ -50,7 +51,7 @@ class Payment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True, blank=True, related_name='payment')
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name='payment')
     amount = models.FloatField(verbose_name='сумма оплаты')
-    method = models.CharField(max_length=150,verbose_name='сумма оплаты')
+    method = models.CharField(max_length=150, verbose_name='способ оплаты')
 
     def __str__(self):
         return f'{self.pk} {self.date}'
