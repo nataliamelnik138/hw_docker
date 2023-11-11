@@ -26,4 +26,3 @@ def blocks_the_user():
             if user.last_login.timestamp() < (now - datetime.timedelta(days=30)).timestamp():
                 user.is_active = False
                 user.save()
-                print(f"User {user.email} blocked")
