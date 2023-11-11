@@ -8,7 +8,10 @@ from courses.paginator import CoursePaginator
 from courses.permissions import IsModerator, IsOwner, IsSubscriber
 from courses.serliazers import CourseSerializer, LessonSerializer, PaymentSerializer, \
     SubscriptionSerializer
+from courses.services import send_mailing
+
 from users.models import UserRoles
+from courses.tasks import send_email_about_course_updates
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -76,6 +79,17 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     permission_classes = [IsAuthenticated, IsOwner]
+
+    def perform_update(self, serializer):
+        serializer.save()
+        pk = self.kwargs.get('pk')
+        course = Lesson.objects.get(pk=pk).course
+        subscriptions = Subscription.objects.filter(course=course)
+
+        if subscriptions:
+            for subscription in subscriptions:
+                # send_mailing(subscription)
+                send_email_about_course_updates.delay(subscription)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
