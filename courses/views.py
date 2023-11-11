@@ -88,8 +88,7 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
 
         if subscriptions:
             for subscription in subscriptions:
-                # send_mailing(subscription)
-                send_email_about_course_updates.delay(subscription)
+                send_email_about_course_updates.delay(subscription.pk)
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):

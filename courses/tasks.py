@@ -7,13 +7,13 @@ from users.models import User
 
 
 @shared_task
-def send_email_about_course_updates(subscription):
+def send_email_about_course_updates(subscription_pk):
     """
     Вызывает функцию, которая отправляет пользователю письмо
     об обновлении материалов курса
-    :param subscription: подписка на курс
+    :param subscription_pk: id подписки на курс
     """
-    send_mailing(subscription)
+    send_mailing(subscription_pk)
 
 
 @shared_task
