@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 
     'users',
     'courses'
@@ -158,3 +159,6 @@ REST_FRAMEWORK = {
 }
 
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
