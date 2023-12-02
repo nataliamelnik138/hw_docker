@@ -12,20 +12,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
-from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-dot_env = os.path.join(BASE_DIR, '.env')
-load_dotenv(dotenv_path=dot_env)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-ve)tm(3aite8)7d+)b!14mng8$s#dx8&3fv#u_(q=%mpkxoi!6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,11 +86,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hw_drf',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 123456,
-        'HOST': '127.0.0.1',
-        'PORT': 5432
+        'PASSWORD': 'mysecretpassword',
+        'HOST': 'db'
     }
 }
 
@@ -135,10 +130,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# STATICFILES_DIRS = (
-#     BASE_DIR / 'static',
-# )
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -159,15 +150,15 @@ REST_FRAMEWORK = {
     ]
 }
 
-STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_SECRET_KEY = 'sk_test_51OAwxaBUzpYwsbbCINLdsSfWmnilyJOOt3GJLMQ84rNY8HCbYeaRBtLtmBzKH0D5CORQ6cUi8Y4dVrBowi2PIEY500zaRrAEzQ'
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'noreply@oscarbot.ru'
+EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
 EMAIL_USE_SSL = True
 
 CELERY_BEAT_SCHEDULE = {
